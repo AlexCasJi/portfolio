@@ -1,12 +1,24 @@
+import administrator from './assets/badges/administrator.png'
+import appBuilder from './assets/badges/app-builder.png'
+import developerI from './assets/badges/developer-i.png'
+import javascriptI from './assets/badges/javascript-i.png'
+import aiAssociate from './assets/badges/ai-associate.png'
+
 const linkedin = 'https://www.linkedin.com/in/alejandro-castillo-jiménez-370182276/'
 
 const roles = [
-  { title: 'Technical Consultant', period: 'oct. 2025 – actualidad', now: true },
-  { title: 'Junior Salesforce Developer', period: 'jun. 2024 – oct. 2025', note: 'Apex, Lightning Web Components, SOQL · Granada, híbrido' },
-  { title: 'Trainee Salesforce Developer', period: 'abr. 2024 – jun. 2024', note: 'Granada' },
+  { title: 'Technical Consultant', period: 'Oct. 2025 – actualidad', note: 'Omega CRM, A Merkle Company', dark: true },
+  { title: 'Junior Salesforce Developer', period: 'Jun. 2024 – oct. 2025', note: 'Apex, Lightning Web Components y SOQL. Granada, híbrido.' },
+  { title: 'Trainee Salesforce Developer', period: 'Abr. 2024 – jun. 2024', note: 'Omega CRM, A Merkle Company. Granada.' },
 ]
 
-const certs = ['Platform App Builder', 'Platform Developer I', 'JavaScript Developer I', 'AI Associate']
+const certs = [
+  { name: 'Platform Administrator', img: administrator },
+  { name: 'Platform App Builder', img: appBuilder },
+  { name: 'Platform Developer I', img: developerI },
+  { name: 'JavaScript Developer I', img: javascriptI },
+  { name: 'AI Associate', img: aiAssociate },
+]
 
 const skills = [
   { group: 'Salesforce', items: ['Apex', 'Lightning Web Components', 'SOQL'] },
@@ -17,13 +29,14 @@ const skills = [
 
 const education = [
   { name: 'MEDAC', detail: 'Técnico Superior en Desarrollo de Aplicaciones Multiplataforma', period: '2022 – 2024' },
-  { name: 'Universidad de Granada', detail: 'Grado en Historia', period: 'sept. 2018 – jul. 2022' },
+  { name: 'Universidad de Granada', detail: 'Grado en Historia', period: 'Sept. 2018 – jul. 2022' },
 ]
 
 function App() {
   return (
     <>
       <nav className="nav" aria-label="Secciones">
+        <a className="brand" href="#top">Alejandro Castillo</a>
         <a href="#experiencia">Experiencia</a>
         <a href="#certificaciones">Certificaciones</a>
         <a href="#aptitudes">Aptitudes</a>
@@ -31,89 +44,89 @@ function App() {
         <a href="#contacto">Contacto</a>
       </nav>
 
-      <main>
-        <header className="hero">
-          <p className="eyebrow">Technical Consultant · Omega CRM, A Merkle Company</p>
-          <h1>Alejandro Castillo Jiménez</h1>
-          <p className="lead">
-            Graduado en Historia y Técnico Superior en Desarrollo de Aplicaciones Multiplataforma.
-            Apasionado por la informática y el desarrollo de software y web.
-          </p>
-          <div className="links">
-            <a className="btn" href={linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
-            <a className="btn ghost" href="#experiencia">Ver experiencia</a>
-          </div>
-          <p className="meta" style={{ marginTop: 20 }}>Otura, Granada, Andalucía</p>
-        </header>
+      <header className="band hero" id="top">
+        <p className="eyebrow">Technical Consultant · Omega CRM</p>
+        <h1>Alejandro Castillo Jiménez.</h1>
+        <p className="lead">
+          Graduado en Historia y Técnico Superior en Desarrollo de Aplicaciones Multiplataforma.
+          Apasionado por la informática y el desarrollo de software y web.
+        </p>
+        <div className="links">
+          <a className="btn" href="#experiencia">Ver experiencia</a>
+          <a className="more" href={linkedin} target="_blank" rel="noreferrer">LinkedIn</a>
+        </div>
+        <p className="meta">Otura, Granada, Andalucía</p>
+      </header>
 
-        <section id="experiencia">
-          <h2>Experiencia</h2>
-          <div className="card">
-            <h3>Omega CRM, A Merkle Company</h3>
-            <p className="meta" style={{ marginBottom: 20 }}>Jornada completa · 2 años 7 meses</p>
-            {roles.map((r) => (
-              <div className="role" key={r.title}>
-                <div>
-                  <strong>{r.title}</strong>
-                  {r.note && <p className="meta">{r.note}</p>}
-                </div>
-                <span className={r.now ? 'now' : 'meta'}>{r.period}</span>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="band gray" id="experiencia">
+        <h2>Experiencia.<span> Dos años y medio en Omega CRM.</span></h2>
+        <div className="tiles three">
+          {roles.map((r) => (
+            <article className={r.dark ? 'tile dark' : 'tile'} key={r.title}>
+              <p className="tile-meta">{r.period}</p>
+              <h3>{r.title}</h3>
+              <p>{r.note}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section id="certificaciones">
-          <h2>Certificaciones</h2>
-          <div className="grid">
-            {certs.map((c) => (
-              <div className="card cert" key={c}>
-                <span className="meta">Salesforce Certified</span>
-                <strong>{c}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="band" id="certificaciones">
+        <h2>Certificaciones.<span> Salesforce Certified.</span></h2>
+        <div className="tiles certs">
+          {certs.map((c) => (
+            <article className="tile cert" key={c.name}>
+              <img src={c.img} alt={`Insignia Salesforce Certified ${c.name}`} width="160" height="160" />
+              <h3>{c.name}</h3>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section id="aptitudes">
-          <h2>Aptitudes</h2>
-          <div className="grid">
-            {skills.map((s) => (
-              <div className="card" key={s.group}>
-                <h3>{s.group}</h3>
-                <div className="chips">
-                  {s.items.map((i) => <span className="chip" key={i}>{i}</span>)}
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+      <section className="band gray" id="aptitudes">
+        <h2>Aptitudes.<span> Lo que uso cada día.</span></h2>
+        <div className="tiles two">
+          {skills.map((s) => (
+            <article className="tile" key={s.group}>
+              <h3>{s.group}</h3>
+              <ul className="chips">
+                {s.items.map((i) => <li key={i}>{i}</li>)}
+              </ul>
+            </article>
+          ))}
+        </div>
+      </section>
 
-        <section id="educacion">
-          <h2>Educación</h2>
-          <div className="grid">
-            {education.map((e) => (
-              <div className="card" key={e.name}>
-                <h3>{e.name}</h3>
-                <p>{e.detail}</p>
-                <p className="meta">{e.period}</p>
-              </div>
-            ))}
-          </div>
-          <div className="card" style={{ marginTop: 16 }}>
-            <h3>Idiomas</h3>
-            <p>Español <span className="meta">· bilingüe o nativo</span></p>
-            <p>Inglés <span className="meta">· B2</span></p>
-          </div>
-        </section>
+      <section className="band" id="educacion">
+        <h2>Educación.<span> Y los idiomas.</span></h2>
+        <div className="tiles two">
+          {education.map((e) => (
+            <article className="tile" key={e.name}>
+              <p className="tile-meta">{e.period}</p>
+              <h3>{e.name}</h3>
+              <p>{e.detail}</p>
+            </article>
+          ))}
+          <article className="tile">
+            <p className="tile-meta">Idiomas</p>
+            <h3>Español</h3>
+            <p>Competencia bilingüe o nativa.</p>
+          </article>
+          <article className="tile">
+            <p className="tile-meta">Idiomas</p>
+            <h3>Inglés</h3>
+            <p>Nivel B2.</p>
+          </article>
+        </div>
+      </section>
 
-        <section id="contacto" style={{ textAlign: 'center' }}>
-          <h2>Contacto</h2>
-          <a className="btn" href={linkedin} target="_blank" rel="noreferrer">Escríbeme por LinkedIn</a>
-        </section>
-      </main>
+      <section className="band gray contact" id="contacto">
+        <h2>Hablemos.</h2>
+        <p className="lead">Si quieres contactar conmigo, el mejor sitio es LinkedIn.</p>
+        <a className="btn" href={linkedin} target="_blank" rel="noreferrer">Abrir LinkedIn</a>
+      </section>
 
-      <footer>© {new Date().getFullYear()} Alejandro Castillo Jiménez</footer>
+      <footer>Copyright © {new Date().getFullYear()} Alejandro Castillo Jiménez.</footer>
     </>
   )
 }
