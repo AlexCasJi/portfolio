@@ -56,12 +56,27 @@ function Reveal({ children, className = '' }: { children: ReactNode; className?:
   return <div ref={setEl} className={`reveal ${seen ? 'in' : ''} ${className}`}>{children}</div>
 }
 
-function Head({ eyebrow, title }: { eyebrow: string; title: string }) {
+function Head({ num, title, script }: { num: string; title: string; script: string }) {
   return (
-    <Reveal className="section-head">
-      <span className="eyebrow">{eyebrow}</span>
+    <Reveal className="block-head">
+      <span className="tag">Misión {num}</span>
       <h2 className="section-title">{title}</h2>
+      <p className="script">{script}</p>
     </Reveal>
+  )
+}
+
+function Palm() {
+  const fronds = [-75, -45, -15, 15, 45, 75, -105, 105]
+  return (
+    <svg viewBox="-110 -20 220 320" aria-hidden="true">
+      <path d="M-4 300 C-2 220 8 120 6 20" fill="none" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
+      <g transform="translate(6 20)" fill="currentColor">
+        {fronds.map((r) => (
+          <path key={r} transform={`rotate(${r})`} d="M0 0 C25 -42 85 -40 105 -4 C70 -22 30 -16 0 0Z" />
+        ))}
+      </g>
+    </svg>
   )
 }
 
@@ -71,7 +86,7 @@ function App() {
       const saved = localStorage.getItem('theme')
       if (saved) return saved === 'dark'
     } catch { /* storage blocked */ }
-    return matchMedia('(prefers-color-scheme: dark)').matches
+    return true
   })
   const [scrolled, setScrolled] = useState(false)
 
@@ -93,29 +108,33 @@ function App() {
 
   return (
     <>
-      <div className="ambient" aria-hidden="true">
-        <i className="orb orb-1" /><i className="orb orb-2" /><i className="orb orb-3" /><i className="orb orb-4" />
-      </div>
+      <div className="sky" aria-hidden="true" />
+      <div className="sun" aria-hidden="true" />
+      <div className="floor" aria-hidden="true"><i /></div>
+      <div className="palm palm-l" aria-hidden="true"><Palm /></div>
+      <div className="palm palm-r" aria-hidden="true"><Palm /></div>
+      <div className="scan" aria-hidden="true" />
       <div className="progress" aria-hidden="true" />
 
       <nav className={`nav ${scrolled ? 'scrolled' : ''}`} aria-label="Secciones">
-        <a className="brand" href="#top"><span className="dot" /><span className="name">Alejandro Castillo</span></a>
+        <a className="brand" href="#top"><span className="name">Alejandro Castillo</span></a>
         <div className="nav-links">
           {links.map(([id, label]) => <a key={id} href={`#${id}`}>{label}</a>)}
         </div>
         <button className="icon-btn" onClick={() => setDark(!dark)} aria-label={dark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'}>
-          {dark ? '☀' : '☾'}
+          {dark ? '☀ Día' : '☾ Noche'}
         </button>
       </nav>
 
       <main>
         <header id="top" className="hero">
           <div className="wrap hero-inner">
-            <span className="eyebrow"><i className="live" />Technical Consultant · Omega CRM</span>
+            <span className="eyebrow"><i className="live" />Omega CRM · Granada</span>
             <h1 className="hero-title">
               Alejandro Castillo
               <span className="line-2">Jiménez</span>
             </h1>
+            <p className="script hero-script">Technical Consultant</p>
             <p className="hero-lead">
               Graduado en Historia y Técnico Superior en Desarrollo de Aplicaciones Multiplataforma.
               Apasionado por la informática y el desarrollo de software y web.
@@ -134,7 +153,8 @@ function App() {
 
         <section id="experiencia">
           <div className="wrap">
-            <Head eyebrow="Trayectoria" title="Experiencia" />
+            <div className="block">
+            <Head num="01" title="Experiencia" script="Dos años y medio en Omega CRM" />
             <ol className="timeline">
               {roles.map((r) => (
                 <li key={r.title}>
@@ -146,12 +166,14 @@ function App() {
                 </li>
               ))}
             </ol>
+            </div>
           </div>
         </section>
 
         <section id="certificaciones">
           <div className="wrap">
-            <Head eyebrow="Salesforce Certified" title="Certificaciones" />
+            <div className="block">
+            <Head num="02" title="Certificaciones" script="Salesforce Certified" />
             <div className="grid certs">
               {certs.map((c) => (
                 <Reveal key={c.name} className="glass card cert">
@@ -160,12 +182,14 @@ function App() {
                 </Reveal>
               ))}
             </div>
+            </div>
           </div>
         </section>
 
         <section id="aptitudes">
           <div className="wrap">
-            <Head eyebrow="Stack" title="Aptitudes" />
+            <div className="block">
+            <Head num="03" title="Aptitudes" script="Lo que uso cada día" />
             <div className="grid two">
               {skills.map((s) => (
                 <Reveal key={s.group} className="glass card">
@@ -176,12 +200,14 @@ function App() {
                 </Reveal>
               ))}
             </div>
+            </div>
           </div>
         </section>
 
         <section id="educacion">
           <div className="wrap">
-            <Head eyebrow="Formación" title="Educación e idiomas" />
+            <div className="block">
+            <Head num="04" title="Educación" script="Y los idiomas" />
             <div className="grid two">
               {education.map((e) => (
                 <Reveal key={e.name} className="glass card">
@@ -201,13 +227,15 @@ function App() {
                 <p>Nivel B2.</p>
               </Reveal>
             </div>
+            </div>
           </div>
         </section>
 
         <section id="contacto">
           <div className="wrap">
             <Reveal className="glass card contact">
-              <h2 className="section-title">Hablemos</h2>
+              <span className="tag">Misión cumplida</span>
+              <h2 className="section-title">¿Hablamos?</h2>
               <p>Si quieres contactar conmigo, el mejor sitio es LinkedIn.</p>
               <a className="btn btn-primary" href={linkedin} target="_blank" rel="noreferrer">Abrir LinkedIn</a>
             </Reveal>
