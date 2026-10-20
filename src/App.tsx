@@ -69,7 +69,7 @@ function Head({ num, title, script }: { num: string; title: string; script: stri
 function Palm() {
   const fronds = [-75, -45, -15, 15, 45, 75, -105, 105]
   return (
-    <svg viewBox="-110 -20 220 320" aria-hidden="true">
+    <svg viewBox="-130 -130 260 440" aria-hidden="true">
       <path d="M-4 300 C-2 220 8 120 6 20" fill="none" stroke="currentColor" strokeWidth="9" strokeLinecap="round" />
       <g transform="translate(6 20)" fill="currentColor">
         {fronds.map((r) => (
